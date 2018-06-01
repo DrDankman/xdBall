@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 
 public class xdBall extends Canvas implements MouseMotionListener{
 
+
     JFrame frame;
     int width = 1500;
     int height = 1000;
@@ -16,7 +17,7 @@ public class xdBall extends Canvas implements MouseMotionListener{
     public Padda padda = new Padda();
     Image dbImage;
     Graphics g;
-
+    //rita ut spelplanen
     public xdBall() {
         this.frame = new JFrame("grafik");
         this.frame.setSize(new Dimension(width, height));
@@ -31,19 +32,19 @@ public class xdBall extends Canvas implements MouseMotionListener{
                 blocks[y * columns + x] = new Block(x,y, Color.GREEN);
             }
         }
-        // Transparent 16 x 16 pixel cursor image.
+        // Gör en genomskinlig cursorbild
         BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
 
-        // Create a new blank cursor.
+        // Gör en blank cursor
         Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(
                 cursorImg, new Point(0, 0), "blank cursor");
 
-        // Set the blank cursor to the JFrame.
+        // equip cursorn
         frame.getContentPane().setCursor(blankCursor);
     }
 
     public void draw() {
-
+        //dubbelbuffer som ritar ut nästa frame innan den syns så att det blir jämnt
         if (dbImage == null) { //Create the buffer
             dbImage = createImage(width, height);
             if (dbImage == null) {
@@ -53,9 +54,10 @@ public class xdBall extends Canvas implements MouseMotionListener{
                 g = dbImage.getGraphics();
             }
         }
-
+        //målar svart mellan varje frame så att den gamla försvinner
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, 1500, 1000);
+        //ritar ut blocken
         g.setColor(Color.GREEN);
         for (int i = 0 ; i < blocks.length; i++) {
             g.setColor(blocks[i].c);
@@ -80,7 +82,7 @@ public class xdBall extends Canvas implements MouseMotionListener{
     public void mouseDragged(MouseEvent e) {
 
     }
-
+    //gör att man styr paddan med musen + hindrar paddan från att åka utanför canvasen
     @Override
     public void mouseMoved (MouseEvent e) {
         System.out.println(e.getX() + " " + e.getY());
